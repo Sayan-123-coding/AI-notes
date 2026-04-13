@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# Environment variables - NEVER COMMIT THESE WITH SECRETS
+.env
+.env.local
+.env.development
+.env.production
+
+# IDE and Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Temp files
+temp/
+tmp/
+
+# Build outputs
+dist/
+build/
