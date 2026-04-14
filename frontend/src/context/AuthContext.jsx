@@ -30,7 +30,9 @@ export const AuthProvider = ({ children }) => {
     const verifyToken = async () => {
       if (token) {
         try {
-          const response = await axios.get(`${API_URL}/auth/me`);
+          const response = await axios.get(`${API_URL}/auth/me`, {
+            withCredentials: true,
+          });
           if (response.data.success) {
             setUser(response.data.data.user);
           }
@@ -56,6 +58,9 @@ export const AuthProvider = ({ children }) => {
           password,
           confirmPassword,
         },
+        {
+          withCredentials: true,
+        },
       );
 
       if (response.data.success) {
@@ -79,6 +84,9 @@ export const AuthProvider = ({ children }) => {
         {
           email,
           password,
+        },
+        {
+          withCredentials: true,
         },
       );
 

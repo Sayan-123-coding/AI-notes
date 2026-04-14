@@ -52,13 +52,10 @@ const ArchivedNotes = () => {
   const handleUnarchive = async (noteId) => {
     try {
       const token = localStorage.getItem("authToken");
-      const res = await fetch(
-        `${API_URL}/notes/${noteId}/archive`,
-        {
-          method: "PUT",
-          headers: { Authorization: `Bearer ${token}` },
-        },
-      );
+      const res = await fetch(`${API_URL}/notes/${noteId}/archive`, {
+        method: "PUT",
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
       const data = await res.json();
       if (data.success) {

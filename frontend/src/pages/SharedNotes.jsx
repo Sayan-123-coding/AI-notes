@@ -42,12 +42,9 @@ const SharedNotes = () => {
       });
 
       const token = localStorage.getItem("authToken");
-      const res = await fetch(
-        `${API_URL}/shares/shared-with-me?${params}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        },
-      );
+      const res = await fetch(`${API_URL}/shares/shared-with-me?${params}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       const data = await res.json();
 
       if (data.success) {

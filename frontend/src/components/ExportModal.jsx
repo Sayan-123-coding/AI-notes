@@ -29,14 +29,11 @@ const ExportModal = ({
       if (filters.tags) params.append("tags", filters.tags);
       if (filters.isFavorited) params.append("isFavorited", "true");
 
-      const response = await fetch(
-        `${API_URL}/export/${format}?${params}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-          },
+      const response = await fetch(`${API_URL}/export/${format}?${params}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
         },
-      );
+      });
 
       if (!response.ok) {
         throw new Error("Export failed");
