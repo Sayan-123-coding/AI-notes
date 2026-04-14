@@ -885,7 +885,7 @@ Category: ${note.categoryId?.name || "No Category"}
       className={`min-h-screen relative overflow-hidden transition-colors duration-500 ${
         isDarkMode
           ? "bg-gradient-to-br from-slate-950 via-blue-950 to-purple-950"
-          : "bg-gradient-to-br from-gray-50 via-white to-gray-50"
+          : "bg-gradient-to-br from-slate-50 via-blue-50/40 to-indigo-50"
       }`}
     >
       <Toaster position="top-right" />
@@ -911,7 +911,7 @@ Category: ${note.categoryId?.name || "No Category"}
             className={`w-72 h-screen md:h-auto md:min-h-screen backdrop-blur border-r overflow-y-auto transition-colors duration-500 ${
               isDarkMode
                 ? "bg-slate-900/80 border-white/10"
-                : "bg-white border-gray-200"
+                : "bg-white border-slate-200 shadow-[2px_0_16px_rgba(0,0,0,0.06)]"
             }`}
           >
             {/* User Profile Section */}
@@ -1266,7 +1266,6 @@ Category: ${note.categoryId?.name || "No Category"}
             </div>
           </div>
         </div>
-      </div>
 
       {/* MAIN CONTENT AREA */}
       <div
@@ -1315,17 +1314,17 @@ Category: ${note.categoryId?.name || "No Category"}
           {/* Animated gradient blobs */}
           <div
             className={`absolute -top-40 -right-40 w-96 h-96 rounded-full blur-3xl animate-pulse ${
-              isDarkMode ? "bg-blue-500/30" : "bg-blue-400/20"
+              isDarkMode ? "bg-blue-500/30" : "bg-blue-300/25"
             }`}
           ></div>
           <div
             className={`absolute -bottom-40 -left-40 w-96 h-96 rounded-full blur-3xl animate-pulse delay-700 ${
-              isDarkMode ? "bg-purple-500/25" : "bg-purple-400/15"
+              isDarkMode ? "bg-purple-500/25" : "bg-indigo-300/20"
             }`}
           ></div>
           <div
             className={`absolute top-1/4 -right-20 w-72 h-72 rounded-full blur-3xl animate-pulse delay-300 ${
-              isDarkMode ? "bg-cyan-500/15" : "bg-cyan-400/10"
+              isDarkMode ? "bg-cyan-500/15" : "bg-sky-200/20"
             }`}
           ></div>
 
@@ -2118,12 +2117,22 @@ Category: ${note.categoryId?.name || "No Category"}
             {/* Header Section - Compact */}
             <div className="text-center mb-12 animate-fade-in">
               <div className="mb-4 flex justify-center">
-                <div className="text-5xl sm:text-6xl drop-shadow-lg">🧠</div>
+                <div className={`w-16 h-16 rounded-2xl flex items-center justify-center text-3xl shadow-lg ${
+                  isDarkMode
+                    ? "bg-gradient-to-br from-blue-500 to-purple-600 shadow-blue-500/30"
+                    : "bg-gradient-to-br from-blue-500 to-indigo-600 shadow-blue-400/30"
+                }`}>🧠</div>
               </div>
-              <h1 className="text-5xl sm:text-6xl font-bold mb-3 bg-gradient-to-r from-blue-300 via-cyan-300 to-purple-300 bg-clip-text text-transparent tracking-tight">
+              <h1 className={`text-5xl sm:text-6xl font-bold mb-3 tracking-tight ${
+                isDarkMode
+                  ? "bg-gradient-to-r from-blue-300 via-cyan-300 to-purple-300 bg-clip-text text-transparent"
+                  : "text-slate-800"
+              }`}>
                 AI Notes
               </h1>
-              <p className="text-lg sm:text-xl text-gray-300 font-light">
+              <p className={`text-lg sm:text-xl font-light ${
+                isDarkMode ? "text-gray-300" : "text-slate-500"
+              }`}>
                 Capture your thoughts. Let AI summarize.
               </p>
             </div>
@@ -2132,12 +2141,18 @@ Category: ${note.categoryId?.name || "No Category"}
             <div className="mb-16">
               <div className="group relative">
                 {/* Enhanced glow effect on hover */}
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/40 to-purple-500/40 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:blur-3xl"></div>
+                {isDarkMode && <div className="absolute inset-0 bg-gradient-to-r from-blue-500/40 to-purple-500/40 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:blur-3xl"></div>}
 
-                {/* Glass Card */}
-                <div className="relative bg-white/10 backdrop-blur-2xl border border-white/25 rounded-3xl p-8 sm:p-10 shadow-2xl hover:shadow-3xl hover:bg-white/15 transition-all duration-500">
+                {/* Card */}
+                <div className={`relative rounded-3xl p-8 sm:p-10 transition-all duration-500 ${
+                  isDarkMode
+                    ? "bg-white/10 backdrop-blur-2xl border border-white/25 shadow-2xl hover:shadow-3xl hover:bg-white/15"
+                    : "bg-white border border-blue-100 shadow-lg shadow-blue-100/50 hover:shadow-xl hover:shadow-blue-200/40"
+                }`}>
                   {/* Label */}
-                  <label className="block text-sm font-semibold text-blue-300 mb-4 tracking-wide uppercase">
+                  <label className={`block text-xs font-semibold mb-4 tracking-widest uppercase ${
+                    isDarkMode ? "text-blue-300" : "text-blue-600"
+                  }`}>
                     + Create a New Note
                   </label>
 
@@ -2432,11 +2447,7 @@ Category: ${note.categoryId?.name || "No Category"}
                         key={option.value}
                         onClick={() => handleSort(option.value)}
                         disabled={isFetching}
-                        className={`px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 disabled:opacity-50 ${
-                          sort === option.value
-                            ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white border border-blue-400/40 shadow-lg shadow-blue-500/30"
-                            : "bg-white/10 border border-white/20 text-gray-300 hover:text-white hover:bg-white/15 hover:border-blue-400/40"
-                        }`}
+                        className={`px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 disabled:opacity-50 ${sort === option.value ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white border border-blue-400/40 shadow-lg shadow-blue-500/30" : (isDarkMode ? "bg-white/10 border border-white/20 text-gray-300 hover:text-white hover:bg-white/15 hover:border-blue-400/40" : "bg-white text-gray-700 border border-gray-200 hover:bg-gray-50 hover:border-blue-400 hover:text-blue-600")}`}
                       >
                         {option.label}
                       </button>
@@ -2445,15 +2456,11 @@ Category: ${note.categoryId?.name || "No Category"}
 
                   {/* Filter Options */}
                   <div
-                    className={`flex flex-wrap gap-3 items-center mb-8 p-4 rounded-xl border transition-colors duration-500 ${
-                      isDarkMode
-                        ? "bg-white/5 border-white/10"
-                        : "bg-slate-800/50 border-slate-700"
-                    }`}
+                    className={`flex flex-wrap gap-3 items-center mb-8 p-4 rounded-xl border transition-colors duration-500 ${isDarkMode ? "bg-white/5 border-white/10" : "bg-white border-gray-200 shadow-sm"}`}
                   >
                     <span
                       className={`text-sm font-semibold transition-colors duration-500 ${
-                        isDarkMode ? "text-gray-400" : "text-gray-300"
+                        isDarkMode ? "text-gray-400" : "text-gray-500"
                       }`}
                     >
                       Filters:
@@ -2515,7 +2522,7 @@ Category: ${note.categoryId?.name || "No Category"}
                             )
                           }
                           disabled={isFetching}
-                          className="px-3 py-2 rounded-lg bg-white/10 border border-white/20 text-white text-sm outline-none focus:border-blue-300/70 focus:ring-2 focus:ring-blue-500/30 transition-all duration-200 disabled:opacity-50"
+                          className={`px-3 py-2 rounded-lg border text-sm outline-none transition-all duration-200 disabled:opacity-50 ${isDarkMode ? "bg-white/10 border-white/20 text-white focus:border-blue-300/70 focus:ring-2 focus:ring-blue-500/30" : "bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"}`}
                           title="Hold Ctrl/Cmd to select multiple tags"
                         >
                           <option value="">All Tags</option>
@@ -2586,7 +2593,7 @@ Category: ${note.categoryId?.name || "No Category"}
                 /* Empty State - Premium */
                 <div className="grid place-items-center py-24">
                   <div className="text-center">
-                    <div className="inline-block mb-6 p-6 bg-white/5 backdrop-blur-xl border border-white/20 rounded-3xl">
+                    <div className={`inline-block mb-6 p-6 backdrop-blur-xl border rounded-3xl ${isDarkMode ? "bg-white/5 border-white/20" : "bg-white border-gray-200 shadow-sm"}`}>
                       <span className="text-6xl block">📝</span>
                     </div>
                     <h3
@@ -2611,7 +2618,7 @@ Category: ${note.categoryId?.name || "No Category"}
                       )}
                     </p>
                     {!search && (
-                      <div className="inline-block px-6 py-3 bg-white/10 border border-white/20 rounded-xl text-gray-300 font-light">
+                      <div className={`inline-block px-6 py-3 border rounded-xl font-light ${isDarkMode ? "bg-white/10 border-white/20 text-gray-300" : "bg-blue-50 border-blue-200 text-blue-700 font-medium"}`}>
                         👆 Create a note above to get started
                       </div>
                     )}
@@ -2632,7 +2639,11 @@ Category: ${note.categoryId?.name || "No Category"}
                           <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
 
                           {/* Glass Note Card */}
-                          <div className="relative bg-white/10 backdrop-blur-2xl border border-white/20 rounded-3xl p-7 sm:p-8 shadow-xl hover:shadow-2xl hover:bg-white/15 transition-all duration-300 group-hover:border-blue-400/50 group-hover:-translate-y-1 h-full flex flex-col">
+                          <div className={`relative border rounded-3xl p-7 sm:p-8 transition-all duration-300 group-hover:-translate-y-1 h-full flex flex-col ${
+                            isDarkMode
+                              ? "bg-white/10 backdrop-blur-2xl shadow-xl hover:shadow-2xl hover:bg-white/15 border-white/20 group-hover:border-blue-400/50"
+                              : "bg-white shadow-md hover:shadow-xl border-slate-200 group-hover:border-blue-300 hover:shadow-blue-100/80"
+                          }`}>
                             {/* Bulk Select Toggle & Indicators with Star Favorite */}
                             <div className="flex items-start justify-between mb-4">
                               <div className="flex items-center gap-3">
@@ -2640,7 +2651,7 @@ Category: ${note.categoryId?.name || "No Category"}
                                   onClick={() =>
                                     setIsBulkSelectMode(!isBulkSelectMode)
                                   }
-                                  className="text-xs px-2 py-1 bg-white/10 hover:bg-white/20 border border-white/20 rounded text-gray-300 hover:text-white transition-all"
+                                  className={`text-xs px-2 py-1 border rounded transition-all ${isDarkMode ? "bg-white/10 hover:bg-white/20 border-white/20 text-gray-300 hover:text-white" : "bg-gray-100 hover:bg-gray-200 border-gray-300 text-gray-600 hover:text-gray-900"}`}
                                   title={
                                     isBulkSelectMode
                                       ? "Done selecting"
@@ -2710,7 +2721,7 @@ Category: ${note.categoryId?.name || "No Category"}
                                   onClick={() =>
                                     handleCategoryFilter(n.categoryId._id)
                                   }
-                                  className="inline-flex items-center gap-2 px-3 py-1 bg-white/15 hover:bg-white/25 border border-white/25 hover:border-white/40 rounded-lg text-sm font-medium text-gray-200 hover:text-white transition-all duration-200"
+                                  className={`inline-flex items-center gap-2 px-3 py-1 border rounded-lg text-sm font-medium transition-all duration-200 ${isDarkMode ? "bg-white/15 hover:bg-white/25 border-white/25 hover:border-white/40 text-gray-200 hover:text-white" : "bg-gray-100 hover:bg-gray-200 border-gray-200 text-gray-700 hover:text-gray-900"}`}
                                   title="Filter by this category"
                                 >
                                   <span className="text-base">
@@ -2791,7 +2802,7 @@ Category: ${note.categoryId?.name || "No Category"}
                             <div className="grid grid-cols-2 gap-2">
                               <button
                                 onClick={() => setPreviewNote(n)}
-                                className="bg-cyan-500/20 hover:bg-cyan-500/40 border border-cyan-400/40 hover:border-cyan-400/70 text-cyan-300 hover:text-cyan-200 font-semibold py-2 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-cyan-500/20 active:scale-95 flex items-center justify-center gap-1 text-sm"
+                                className={`border py-2 rounded-lg font-semibold transition-all duration-200 hover:shadow-lg active:scale-95 flex items-center justify-center gap-1 text-sm ${isDarkMode ? "bg-cyan-500/20 hover:bg-cyan-500/40 border-cyan-400/40 hover:border-cyan-400/70 text-cyan-300 hover:text-cyan-200 hover:shadow-cyan-500/20" : "bg-cyan-50 hover:bg-cyan-100 border-cyan-200 hover:border-cyan-300 text-cyan-700 hover:text-cyan-800 shadow-sm"}`}
                                 title="Preview note"
                               >
                                 <Eye size={16} />
@@ -2800,7 +2811,7 @@ Category: ${note.categoryId?.name || "No Category"}
                               <button
                                 onClick={() => exportNoteToPDF(n._id)}
                                 disabled={loading}
-                                className="bg-green-500/20 hover:bg-green-500/40 border border-green-400/40 hover:border-green-400/70 text-green-300 hover:text-green-200 font-semibold py-2 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-green-500/20 active:scale-95 flex items-center justify-center gap-1 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                                className={`border py-2 rounded-lg font-semibold transition-all duration-200 hover:shadow-lg active:scale-95 flex items-center justify-center gap-1 text-sm disabled:opacity-50 disabled:cursor-not-allowed ${isDarkMode ? "bg-green-500/20 hover:bg-green-500/40 border-green-400/40 hover:border-green-400/70 text-green-300 hover:text-green-200 hover:shadow-green-500/20" : "bg-green-50 hover:bg-green-100 border-green-200 hover:border-green-300 text-green-700 hover:text-green-800 shadow-sm"}`}
                                 title="Export note as PDF"
                               >
                                 <Download size={16} />
@@ -2828,7 +2839,7 @@ Category: ${note.categoryId?.name || "No Category"}
                               </button>
                               <button
                                 onClick={() => duplicateNote(n._id)}
-                                className="bg-purple-500/20 hover:bg-purple-500/40 border border-purple-400/40 hover:border-purple-400/70 text-purple-300 hover:text-purple-200 font-semibold py-2 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-purple-500/20 active:scale-95 flex items-center justify-center gap-1 text-sm"
+                                className={`border py-2 rounded-lg font-semibold transition-all duration-200 hover:shadow-lg active:scale-95 flex items-center justify-center gap-1 text-sm ${isDarkMode ? "bg-purple-500/20 hover:bg-purple-500/40 border-purple-400/40 hover:border-purple-400/70 text-purple-300 hover:text-purple-200 hover:shadow-purple-500/20" : "bg-purple-50 hover:bg-purple-100 border-purple-200 hover:border-purple-300 text-purple-700 hover:text-purple-800 shadow-sm"}`}
                                 title="Duplicate note"
                               >
                                 <Copy size={16} />
@@ -2836,7 +2847,7 @@ Category: ${note.categoryId?.name || "No Category"}
                               </button>
                               <button
                                 onClick={() => startEdit(n)}
-                                className="bg-blue-500/20 hover:bg-blue-500/40 border border-blue-400/40 hover:border-blue-400/70 text-blue-300 hover:text-blue-200 font-semibold py-2 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-blue-500/20 active:scale-95 flex items-center justify-center gap-1 text-sm"
+                                className={`border py-2 rounded-lg font-semibold transition-all duration-200 hover:shadow-lg active:scale-95 flex items-center justify-center gap-1 text-sm ${isDarkMode ? "bg-blue-500/20 hover:bg-blue-500/40 border-blue-400/40 hover:border-blue-400/70 text-blue-300 hover:text-blue-200 hover:shadow-blue-500/20" : "bg-blue-50 hover:bg-blue-100 border-blue-200 hover:border-blue-300 text-blue-700 hover:text-blue-800 shadow-sm"}`}
                                 title="Edit note"
                               >
                                 <Edit size={16} />
@@ -2844,7 +2855,7 @@ Category: ${note.categoryId?.name || "No Category"}
                               </button>
                               <button
                                 onClick={() => openShareModal(n._id)}
-                                className="bg-indigo-500/20 hover:bg-indigo-500/40 border border-indigo-400/40 hover:border-indigo-400/70 text-indigo-300 hover:text-indigo-200 font-semibold py-2 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-indigo-500/20 active:scale-95 flex items-center justify-center gap-1 text-sm"
+                                className={`border py-2 rounded-lg font-semibold transition-all duration-200 hover:shadow-lg active:scale-95 flex items-center justify-center gap-1 text-sm ${isDarkMode ? "bg-indigo-500/20 hover:bg-indigo-500/40 border-indigo-400/40 hover:border-indigo-400/70 text-indigo-300 hover:text-indigo-200 hover:shadow-indigo-500/20" : "bg-indigo-50 hover:bg-indigo-100 border-indigo-200 hover:border-indigo-300 text-indigo-700 hover:text-indigo-800 shadow-sm"}`}
                                 title="Share note"
                               >
                                 <Share2 size={16} />
@@ -2852,7 +2863,7 @@ Category: ${note.categoryId?.name || "No Category"}
                               </button>
                               <button
                                 onClick={() => deleteNote(n._id)}
-                                className="col-span-2 bg-red-500/20 hover:bg-red-500/40 border border-red-400/40 hover:border-red-400/70 text-red-300 hover:text-red-200 font-semibold py-2 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-red-500/20 active:scale-95 flex items-center justify-center gap-1 text-sm"
+                                className={`col-span-2 border py-2 rounded-lg font-semibold transition-all duration-200 hover:shadow-lg active:scale-95 flex items-center justify-center gap-1 text-sm ${isDarkMode ? "bg-red-500/20 hover:bg-red-500/40 border-red-400/40 hover:border-red-400/70 text-red-300 hover:text-red-200 hover:shadow-red-500/20" : "bg-red-50 hover:bg-red-100 border-red-200 hover:border-red-300 text-red-700 hover:text-red-800 shadow-sm"}`}
                                 title="Delete note"
                               >
                                 <Trash2 size={16} />
@@ -2924,6 +2935,7 @@ Category: ${note.categoryId?.name || "No Category"}
             </div>
           </div>
         </div>
+      </div>
       </div>
 
       {/* CSS for animations */}
