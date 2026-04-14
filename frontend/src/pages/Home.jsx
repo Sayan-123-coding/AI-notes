@@ -882,7 +882,7 @@ Category: ${note.categoryId?.name || "No Category"}
 
   return (
     <div
-      className={`min-h-screen relative overflow-hidden flex transition-colors duration-500 ${
+      className={`min-h-screen relative overflow-hidden transition-colors duration-500 ${
         isDarkMode
           ? "bg-gradient-to-br from-slate-950 via-blue-950 to-purple-950"
           : "bg-gradient-to-br from-gray-50 via-white to-gray-50"
@@ -898,22 +898,26 @@ Category: ${note.categoryId?.name || "No Category"}
         ></div>
       )}
 
-      {/* LEFT SIDEBAR */}
-      <div
-        className={`fixed md:relative left-0 top-0 h-screen w-72 backdrop-blur border-r min-h-screen sticky overflow-y-auto z-50 transition-all duration-300 transform md:transform-none ${
-          isSidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
-        } ${
-          isDarkMode
-            ? "bg-slate-900/80 border-white/10"
-            : "bg-white border-gray-200"
-        }`}
-      >
-        {/* User Profile Section */}
+      <div className="flex h-screen">
+        {/* LEFT SIDEBAR */}
         <div
-          className={`p-6 border-b transition-colors duration-500 ${
-            isDarkMode ? "border-white/10" : "border-gray-200"
+          className={`fixed md:sticky inset-y-0 left-0 w-72 z-50 md:z-0 transform transition-transform duration-300 md:transform-none ${
+            isSidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
           }`}
         >
+          <div
+            className={`w-72 h-full backdrop-blur border-r overflow-y-auto transition-colors duration-500 ${
+              isDarkMode
+                ? "bg-slate-900/80 border-white/10"
+                : "bg-white border-gray-200"
+            }`}
+          >
+            {/* User Profile Section */}
+            <div
+              className={`p-6 border-b transition-colors duration-500 ${
+                isDarkMode ? "border-white/10" : "border-gray-200"
+              }`}
+            >
           <div className="flex items-center gap-3 mb-6">
             <div className="w-14 h-14 rounded-full bg-gradient-to-br from-blue-400 to-purple-400 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-purple-500/30 flex-shrink-0">
               {user?.username?.charAt(0).toUpperCase()}
@@ -1258,15 +1262,17 @@ Category: ${note.categoryId?.name || "No Category"}
             <span>Logout</span>
           </button>
         </div>
-      </div>
+            </div>
+          </div>
+        </div>
 
       {/* MAIN CONTENT AREA */}
       <div
-        className={`flex-1 overflow-y-auto transition-colors duration-500 ${
+        className={`flex-1 overflow-y-auto transition-colors duration-500 relative ${
           isDarkMode ? "" : ""
         }`}
       >
-        <div className="relative min-h-screen px-4 py-8 sm:px-6 lg:px-12">
+        <div className="relative min-h-screen px-4 py-8 sm:px-6 lg:px-12 pt-20 md:pt-8">
           {/* Mobile Hamburger Menu - Top Left */}
           <button
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
