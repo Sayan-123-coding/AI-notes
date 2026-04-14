@@ -898,10 +898,10 @@ Category: ${note.categoryId?.name || "No Category"}
         ></div>
       )}
 
-      <div className="flex h-screen">
+      <div className="flex flex-col md:flex-row min-h-screen">
         {/* LEFT SIDEBAR */}
         <div
-          className={`fixed md:sticky inset-y-0 left-0 w-72 z-50 md:z-0 transform transition-transform duration-300 md:transform-none ${
+          className={`fixed md:relative inset-y-0 left-0 w-72 z-50 md:z-auto transform transition-transform duration-300 md:transform-none md:flex-shrink-0 ${
             isSidebarOpen
               ? "translate-x-0"
               : "-translate-x-full md:translate-x-0"
