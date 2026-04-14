@@ -58,12 +58,12 @@ const Register = () => {
         {/* Header */}
         <div className="text-center mb-10 animate-fade-in">
           <div className="mb-4 flex justify-center">
-            <div className="text-5xl drop-shadow-lg">🧠</div>
+            <div className="text-4xl sm:text-5xl drop-shadow-lg">🧠</div>
           </div>
-          <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-blue-300 via-cyan-300 to-purple-300 bg-clip-text text-transparent">
+          <h1 className="text-3xl sm:text-4xl font-bold mb-2 bg-gradient-to-r from-blue-300 via-cyan-300 to-purple-300 bg-clip-text text-transparent">
             Join AI Notes
           </h1>
-          <p className="text-gray-400 font-light">
+          <p className="text-sm sm:text-base text-gray-400 font-light">
             Create an account to start taking smart notes
           </p>
         </div>

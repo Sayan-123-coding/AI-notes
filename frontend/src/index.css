@@ -1,1 +1,31 @@
 @import "tailwindcss";
+
+@layer components {
+  /* Responsive padding for mobile */
+  .responsive-padding {
+    @apply px-3 py-2 sm:px-4 sm:py-3 md:px-6 md:py-4;
+  }
+
+  /* Mobile-first headings */
+  .responsive-h1 {
+    @apply text-2xl sm:text-3xl md:text-4xl;
+  }
+
+  .responsive-h2 {
+    @apply text-xl sm:text-2xl md:text-3xl;
+  }
+
+  /* Ensure touch-friendly buttons on mobile */
+  button {
+    @apply min-h-[44px] min-w-[44px];
+  }
+
+  /* Better textarea on mobile */
+  textarea {
+    @apply text-base; /* Prevents auto-zoom on iOS */
+  }
+
+  input {
+    @apply text-base; /* Prevents auto-zoom on iOS */
+  }
+}

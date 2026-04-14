@@ -59,6 +59,7 @@ const Home = () => {
   const [isDarkMode, setIsDarkMode] = useState(
     () => localStorage.getItem("darkMode") === "true",
   );
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   // Categories
   const [categories, setCategories] = useState([]);
@@ -889,9 +890,19 @@ Category: ${note.categoryId?.name || "No Category"}
     >
       <Toaster position="top-right" />
 
+      {/* Mobile Sidebar Overlay */}
+      {isSidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 md:hidden"
+          onClick={() => setIsSidebarOpen(false)}
+        ></div>
+      )}
+
       {/* LEFT SIDEBAR */}
       <div
-        className={`w-72 backdrop-blur border-r min-h-screen sticky top-0 overflow-y-auto z-50 transition-colors duration-500 ${
+        className={`fixed md:relative left-0 top-0 h-screen w-72 backdrop-blur border-r min-h-screen sticky overflow-y-auto z-50 transition-all duration-300 transform md:transform-none ${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+        } ${
           isDarkMode
             ? "bg-slate-900/80 border-white/10"
             : "bg-white border-gray-200"
@@ -1256,6 +1267,31 @@ Category: ${note.categoryId?.name || "No Category"}
         }`}
       >
         <div className="relative min-h-screen px-4 py-8 sm:px-6 lg:px-12">
+          {/* Mobile Hamburger Menu - Top Left */}
+          <button
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            className={`fixed top-6 left-6 z-50 md:hidden w-12 h-12 rounded-full transition-all duration-300 flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 ${
+              isDarkMode
+                ? "bg-blue-500/20 hover:bg-blue-500/40 border border-blue-400/40 text-blue-300 hover:text-blue-200"
+                : "bg-blue-500/20 hover:bg-blue-500/40 border border-blue-400/40 text-blue-700 hover:text-blue-600"
+            }`}
+            title="Toggle Sidebar"
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </button>
+
           {/* Dark Mode Button - Top Right Corner */}
           <button
             onClick={() => setIsDarkMode(!isDarkMode)}
