@@ -1274,7 +1274,7 @@ Category: ${note.categoryId?.name || "No Category"}
           isDarkMode ? "" : ""
         }`}
       >
-        <div className="relative min-h-screen px-4 py-8 sm:px-6 lg:px-12 pt-20 md:pt-8">
+        <div className="relative min-h-screen px-4 py-8 sm:px-6 lg:px-12">
           {/* Mobile Hamburger Menu - Top Left */}
           <button
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
