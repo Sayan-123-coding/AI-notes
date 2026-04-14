@@ -902,7 +902,9 @@ Category: ${note.categoryId?.name || "No Category"}
         {/* LEFT SIDEBAR */}
         <div
           className={`fixed md:sticky inset-y-0 left-0 w-72 z-50 md:z-0 transform transition-transform duration-300 md:transform-none ${
-            isSidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+            isSidebarOpen
+              ? "translate-x-0"
+              : "-translate-x-full md:translate-x-0"
           }`}
         >
           <div
@@ -918,353 +920,353 @@ Category: ${note.categoryId?.name || "No Category"}
                 isDarkMode ? "border-white/10" : "border-gray-200"
               }`}
             >
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-14 h-14 rounded-full bg-gradient-to-br from-blue-400 to-purple-400 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-purple-500/30 flex-shrink-0">
-              {user?.username?.charAt(0).toUpperCase()}
-            </div>
-            <div className="min-w-0">
-              <p
-                className={`font-bold truncate transition-colors duration-500 ${
-                  isDarkMode ? "text-white" : "text-slate-900"
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-blue-400 to-purple-400 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-purple-500/30 flex-shrink-0">
+                  {user?.username?.charAt(0).toUpperCase()}
+                </div>
+                <div className="min-w-0">
+                  <p
+                    className={`font-bold truncate transition-colors duration-500 ${
+                      isDarkMode ? "text-white" : "text-slate-900"
+                    }`}
+                  >
+                    {user?.username}
+                  </p>
+                  <p
+                    className={`text-xs truncate transition-colors duration-500 ${
+                      isDarkMode ? "text-gray-400" : "text-gray-600"
+                    }`}
+                  >
+                    {user?.email}
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => navigate("/profile")}
+                className={`w-full px-4 py-3 rounded-lg transition-all duration-200 flex items-center gap-3 text-sm font-semibold ${
+                  isDarkMode
+                    ? "bg-blue-500/20 hover:bg-blue-500/40 border border-blue-400/40 text-blue-300 hover:text-blue-200"
+                    : "bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-700 hover:text-blue-800"
                 }`}
+                title="View your profile"
               >
-                {user?.username}
-              </p>
+                👤 <span>My Profile</span>
+              </button>
+            </div>
+
+            {/* Navigation Menu */}
+            <div
+              className={`p-4 space-y-2 border-b transition-colors duration-500 ${
+                isDarkMode ? "border-white/10" : "border-gray-200"
+              }`}
+            >
+              <button
+                onClick={() => navigate("/shared")}
+                className={`w-full px-4 py-3 font-semibold rounded-lg transition-all duration-200 flex items-center gap-3 text-sm border ${
+                  isDarkMode
+                    ? "bg-purple-500/20 hover:bg-purple-500/40 border-purple-400/40 text-purple-300 hover:text-purple-200"
+                    : "bg-purple-50 hover:bg-purple-100 border-purple-200 text-purple-700 hover:text-purple-800"
+                }`}
+                title="View notes shared with you"
+              >
+                <Share2 size={20} />
+                <span>Shared Notes</span>
+              </button>
+              <button
+                onClick={() => navigate("/archived")}
+                className={`w-full px-4 py-3 font-semibold rounded-lg transition-all duration-200 flex items-center gap-3 text-sm border ${
+                  isDarkMode
+                    ? "bg-orange-500/20 hover:bg-orange-500/40 border-orange-400/40 text-orange-300 hover:text-orange-200"
+                    : "bg-orange-50 hover:bg-orange-100 border-orange-200 text-orange-700 hover:text-orange-800"
+                }`}
+                title="View archived notes"
+              >
+                <Archive size={20} />
+                <span>Archived</span>
+              </button>
+              <button
+                onClick={() => navigate("/tags")}
+                className={`w-full px-4 py-3 font-semibold rounded-lg transition-all duration-200 flex items-center gap-3 text-sm border ${
+                  isDarkMode
+                    ? "bg-green-500/20 hover:bg-green-500/40 border-green-400/40 text-green-300 hover:text-green-200"
+                    : "bg-green-50 hover:bg-green-100 border-green-200 text-green-700 hover:text-green-800"
+                }`}
+                title="Manage all tags"
+              >
+                <Tag size={20} />
+                <span>Tags</span>
+              </button>
+            </div>
+
+            {/* Quick Actions */}
+            <div
+              className={`p-4 space-y-2 border-b transition-colors duration-500 ${
+                isDarkMode ? "border-white/10" : "border-gray-200"
+              }`}
+            >
               <p
-                className={`text-xs truncate transition-colors duration-500 ${
+                className={`text-xs font-bold uppercase tracking-wider px-2 mb-3 transition-colors duration-500 ${
                   isDarkMode ? "text-gray-400" : "text-gray-600"
                 }`}
               >
-                {user?.email}
+                Quick Actions
               </p>
+              <button
+                onClick={() => setShowTagManager(true)}
+                className={`w-full px-4 py-3 font-semibold rounded-lg transition-all duration-200 flex items-center gap-3 text-sm border ${
+                  isDarkMode
+                    ? "bg-cyan-500/20 hover:bg-cyan-500/40 border-cyan-400/40 text-cyan-300 hover:text-cyan-200"
+                    : "bg-cyan-50 hover:bg-cyan-100 border-cyan-200 text-cyan-700 hover:text-cyan-800"
+                }`}
+                title="Create new tag"
+              >
+                <Plus size={20} />
+                <span>New Tag</span>
+              </button>
+
+              <button
+                onClick={() => setShowCategoryModal(true)}
+                className={`w-full px-4 py-3 font-semibold rounded-lg transition-all duration-200 flex items-center gap-3 text-sm border ${
+                  isDarkMode
+                    ? "bg-pink-500/20 hover:bg-pink-500/40 border-pink-400/40 text-pink-300 hover:text-pink-200"
+                    : "bg-pink-50 hover:bg-pink-100 border-pink-200 text-pink-700 hover:text-pink-800"
+                }`}
+                title="Create new category"
+              >
+                <FolderPlus size={20} />
+                <span>New Category</span>
+              </button>
             </div>
-          </div>
-          <button
-            onClick={() => navigate("/profile")}
-            className={`w-full px-4 py-3 rounded-lg transition-all duration-200 flex items-center gap-3 text-sm font-semibold ${
-              isDarkMode
-                ? "bg-blue-500/20 hover:bg-blue-500/40 border border-blue-400/40 text-blue-300 hover:text-blue-200"
-                : "bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-700 hover:text-blue-800"
-            }`}
-            title="View your profile"
-          >
-            👤 <span>My Profile</span>
-          </button>
-        </div>
 
-        {/* Navigation Menu */}
-        <div
-          className={`p-4 space-y-2 border-b transition-colors duration-500 ${
-            isDarkMode ? "border-white/10" : "border-gray-200"
-          }`}
-        >
-          <button
-            onClick={() => navigate("/shared")}
-            className={`w-full px-4 py-3 font-semibold rounded-lg transition-all duration-200 flex items-center gap-3 text-sm border ${
-              isDarkMode
-                ? "bg-purple-500/20 hover:bg-purple-500/40 border-purple-400/40 text-purple-300 hover:text-purple-200"
-                : "bg-purple-50 hover:bg-purple-100 border-purple-200 text-purple-700 hover:text-purple-800"
-            }`}
-            title="View notes shared with you"
-          >
-            <Share2 size={20} />
-            <span>Shared Notes</span>
-          </button>
-          <button
-            onClick={() => navigate("/archived")}
-            className={`w-full px-4 py-3 font-semibold rounded-lg transition-all duration-200 flex items-center gap-3 text-sm border ${
-              isDarkMode
-                ? "bg-orange-500/20 hover:bg-orange-500/40 border-orange-400/40 text-orange-300 hover:text-orange-200"
-                : "bg-orange-50 hover:bg-orange-100 border-orange-200 text-orange-700 hover:text-orange-800"
-            }`}
-            title="View archived notes"
-          >
-            <Archive size={20} />
-            <span>Archived</span>
-          </button>
-          <button
-            onClick={() => navigate("/tags")}
-            className={`w-full px-4 py-3 font-semibold rounded-lg transition-all duration-200 flex items-center gap-3 text-sm border ${
-              isDarkMode
-                ? "bg-green-500/20 hover:bg-green-500/40 border-green-400/40 text-green-300 hover:text-green-200"
-                : "bg-green-50 hover:bg-green-100 border-green-200 text-green-700 hover:text-green-800"
-            }`}
-            title="Manage all tags"
-          >
-            <Tag size={20} />
-            <span>Tags</span>
-          </button>
-        </div>
-
-        {/* Quick Actions */}
-        <div
-          className={`p-4 space-y-2 border-b transition-colors duration-500 ${
-            isDarkMode ? "border-white/10" : "border-gray-200"
-          }`}
-        >
-          <p
-            className={`text-xs font-bold uppercase tracking-wider px-2 mb-3 transition-colors duration-500 ${
-              isDarkMode ? "text-gray-400" : "text-gray-600"
-            }`}
-          >
-            Quick Actions
-          </p>
-          <button
-            onClick={() => setShowTagManager(true)}
-            className={`w-full px-4 py-3 font-semibold rounded-lg transition-all duration-200 flex items-center gap-3 text-sm border ${
-              isDarkMode
-                ? "bg-cyan-500/20 hover:bg-cyan-500/40 border-cyan-400/40 text-cyan-300 hover:text-cyan-200"
-                : "bg-cyan-50 hover:bg-cyan-100 border-cyan-200 text-cyan-700 hover:text-cyan-800"
-            }`}
-            title="Create new tag"
-          >
-            <Plus size={20} />
-            <span>New Tag</span>
-          </button>
-
-          <button
-            onClick={() => setShowCategoryModal(true)}
-            className={`w-full px-4 py-3 font-semibold rounded-lg transition-all duration-200 flex items-center gap-3 text-sm border ${
-              isDarkMode
-                ? "bg-pink-500/20 hover:bg-pink-500/40 border-pink-400/40 text-pink-300 hover:text-pink-200"
-                : "bg-pink-50 hover:bg-pink-100 border-pink-200 text-pink-700 hover:text-pink-800"
-            }`}
-            title="Create new category"
-          >
-            <FolderPlus size={20} />
-            <span>New Category</span>
-          </button>
-        </div>
-
-        {/* Stats */}
-        {notes.length > 0 && (
-          <div
-            className={`p-4 border-b transition-colors duration-500 ${
-              isDarkMode ? "border-white/10" : "border-gray-200"
-            }`}
-          >
-            <p
-              className={`text-xs font-bold uppercase tracking-wider px-2 mb-3 flex items-center gap-2 transition-colors duration-500 ${
-                isDarkMode ? "text-gray-400" : "text-gray-600"
-              }`}
-            >
-              <BarChart3 size={14} /> Stats
-            </p>
-            <div className="space-y-2">
+            {/* Stats */}
+            {notes.length > 0 && (
               <div
-                className={`flex items-center justify-between p-2 rounded border transition-colors duration-500 ${
-                  isDarkMode
-                    ? "bg-white/5 border-white/10"
-                    : "bg-gray-100 border-gray-200"
+                className={`p-4 border-b transition-colors duration-500 ${
+                  isDarkMode ? "border-white/10" : "border-gray-200"
                 }`}
               >
-                <span
-                  className={`text-xs transition-colors duration-500 ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}
-                >
-                  Total
-                </span>
-                <span
-                  className={`font-bold transition-colors duration-500 ${isDarkMode ? "text-white" : "text-gray-900"}`}
-                >
-                  {pagination?.total || notes.length}
-                </span>
-              </div>
-              <div
-                className={`flex items-center justify-between p-2 rounded border transition-colors duration-500 ${
-                  isDarkMode
-                    ? "bg-white/5 border-white/10"
-                    : "bg-yellow-50 border-yellow-200"
-                }`}
-              >
-                <span
-                  className={`text-xs flex items-center gap-1 transition-colors duration-500 ${isDarkMode ? "text-yellow-300" : "text-yellow-700"}`}
-                >
-                  <Star size={12} /> Favorites
-                </span>
-                <span
-                  className={`font-bold transition-colors duration-500 ${isDarkMode ? "text-yellow-200" : "text-yellow-700"}`}
-                >
-                  {notes.filter((n) => n.isFavorited).length}
-                </span>
-              </div>
-              <div
-                className={`flex items-center justify-between p-2 rounded border transition-colors duration-500 ${
-                  isDarkMode
-                    ? "bg-white/5 border-white/10"
-                    : "bg-orange-50 border-orange-200"
-                }`}
-              >
-                <span
-                  className={`text-xs flex items-center gap-1 transition-colors duration-500 ${isDarkMode ? "text-orange-300" : "text-orange-700"}`}
-                >
-                  <Archive size={12} /> Archived
-                </span>
-                <span
-                  className={`font-bold transition-colors duration-500 ${isDarkMode ? "text-orange-200" : "text-orange-700"}`}
-                >
-                  {notes.filter((n) => n.isArchived).length}
-                </span>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Tags List */}
-        {tags.length > 0 && (
-          <div
-            className={`p-4 border-b transition-colors duration-500 ${
-              isDarkMode ? "border-white/10" : "border-gray-200"
-            }`}
-          >
-            <p
-              className={`text-xs font-bold uppercase tracking-wider px-2 mb-3 flex items-center gap-2 transition-colors duration-500 ${
-                isDarkMode ? "text-gray-400" : "text-gray-600"
-              }`}
-            >
-              <Tag size={14} /> Your Tags
-            </p>
-            <div className="flex flex-wrap gap-1.5">
-              {tags.slice(0, 8).map((tag) => (
-                <button
-                  key={tag._id}
-                  onClick={() => setSelectedTags([tag._id])}
-                  className="text-xs px-2.5 py-1 rounded-full border transition-all hover:shadow-md"
-                  style={{
-                    backgroundColor: isDarkMode
-                      ? `${tag.color}20`
-                      : `${tag.color}15`,
-                    borderColor: isDarkMode
-                      ? `${tag.color}40`
-                      : `${tag.color}30`,
-                    color: isDarkMode ? tag.color : tag.color,
-                  }}
-                  title={`Filter by ${tag.name}`}
-                >
-                  {tag.icon} {tag.name}
-                </button>
-              ))}
-              {tags.length > 8 && (
-                <button
-                  onClick={() => navigate("/tags")}
-                  className={`text-xs px-2.5 py-1 rounded-full border transition-all ${
-                    isDarkMode
-                      ? "bg-white/10 border-white/20 text-gray-300 hover:text-white"
-                      : "bg-gray-100 border-gray-300 text-gray-700 hover:text-gray-900"
+                <p
+                  className={`text-xs font-bold uppercase tracking-wider px-2 mb-3 flex items-center gap-2 transition-colors duration-500 ${
+                    isDarkMode ? "text-gray-400" : "text-gray-600"
                   }`}
                 >
-                  +{tags.length - 8}
-                </button>
-              )}
-            </div>
-          </div>
-        )}
+                  <BarChart3 size={14} /> Stats
+                </p>
+                <div className="space-y-2">
+                  <div
+                    className={`flex items-center justify-between p-2 rounded border transition-colors duration-500 ${
+                      isDarkMode
+                        ? "bg-white/5 border-white/10"
+                        : "bg-gray-100 border-gray-200"
+                    }`}
+                  >
+                    <span
+                      className={`text-xs transition-colors duration-500 ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}
+                    >
+                      Total
+                    </span>
+                    <span
+                      className={`font-bold transition-colors duration-500 ${isDarkMode ? "text-white" : "text-gray-900"}`}
+                    >
+                      {pagination?.total || notes.length}
+                    </span>
+                  </div>
+                  <div
+                    className={`flex items-center justify-between p-2 rounded border transition-colors duration-500 ${
+                      isDarkMode
+                        ? "bg-white/5 border-white/10"
+                        : "bg-yellow-50 border-yellow-200"
+                    }`}
+                  >
+                    <span
+                      className={`text-xs flex items-center gap-1 transition-colors duration-500 ${isDarkMode ? "text-yellow-300" : "text-yellow-700"}`}
+                    >
+                      <Star size={12} /> Favorites
+                    </span>
+                    <span
+                      className={`font-bold transition-colors duration-500 ${isDarkMode ? "text-yellow-200" : "text-yellow-700"}`}
+                    >
+                      {notes.filter((n) => n.isFavorited).length}
+                    </span>
+                  </div>
+                  <div
+                    className={`flex items-center justify-between p-2 rounded border transition-colors duration-500 ${
+                      isDarkMode
+                        ? "bg-white/5 border-white/10"
+                        : "bg-orange-50 border-orange-200"
+                    }`}
+                  >
+                    <span
+                      className={`text-xs flex items-center gap-1 transition-colors duration-500 ${isDarkMode ? "text-orange-300" : "text-orange-700"}`}
+                    >
+                      <Archive size={12} /> Archived
+                    </span>
+                    <span
+                      className={`font-bold transition-colors duration-500 ${isDarkMode ? "text-orange-200" : "text-orange-700"}`}
+                    >
+                      {notes.filter((n) => n.isArchived).length}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
 
-        {/* Pro Tips */}
-        <div
-          className={`p-4 border-b m-4 rounded-lg transition-colors duration-500 ${
-            isDarkMode
-              ? "border-white/10 bg-blue-500/10"
-              : "border-blue-200 bg-blue-50"
-          }`}
-        >
-          <p
-            className={`text-xs font-bold uppercase tracking-wider mb-2 flex items-center gap-2 transition-colors duration-500 ${
-              isDarkMode ? "text-blue-300" : "text-blue-700"
-            }`}
-          >
-            <Lightbulb size={14} /> Pro Tips
-          </p>
-          <div
-            className={`space-y-1.5 text-xs transition-colors duration-500 ${
-              isDarkMode ? "text-blue-200/80" : "text-blue-700"
-            }`}
-          >
-            <div className="flex gap-2">
-              <kbd
-                className={`px-1.5 py-0.5 rounded border font-mono text-xs transition-colors duration-500 ${
-                  isDarkMode
-                    ? "bg-blue-500/30 border-blue-400/50"
-                    : "bg-blue-100 border-blue-300"
+            {/* Tags List */}
+            {tags.length > 0 && (
+              <div
+                className={`p-4 border-b transition-colors duration-500 ${
+                  isDarkMode ? "border-white/10" : "border-gray-200"
                 }`}
               >
-                Ctrl+N
-              </kbd>
-              <span>New Note</span>
-            </div>
-            <div className="flex gap-2">
-              <kbd
-                className={`px-1.5 py-0.5 rounded border font-mono text-xs transition-colors duration-500 ${
-                  isDarkMode
-                    ? "bg-blue-500/30 border-blue-400/50"
-                    : "bg-blue-100 border-blue-300"
-                }`}
-              >
-                Ctrl+K
-              </kbd>
-              <span>Search</span>
-            </div>
-            <div className="flex gap-2">
-              <kbd
-                className={`px-1.5 py-0.5 rounded border font-mono text-xs transition-colors duration-500 ${
-                  isDarkMode
-                    ? "bg-blue-500/30 border-blue-400/50"
-                    : "bg-blue-100 border-blue-300"
-                }`}
-              >
-                ?
-              </kbd>
-              <span>Help</span>
-            </div>
-          </div>
-        </div>
+                <p
+                  className={`text-xs font-bold uppercase tracking-wider px-2 mb-3 flex items-center gap-2 transition-colors duration-500 ${
+                    isDarkMode ? "text-gray-400" : "text-gray-600"
+                  }`}
+                >
+                  <Tag size={14} /> Your Tags
+                </p>
+                <div className="flex flex-wrap gap-1.5">
+                  {tags.slice(0, 8).map((tag) => (
+                    <button
+                      key={tag._id}
+                      onClick={() => setSelectedTags([tag._id])}
+                      className="text-xs px-2.5 py-1 rounded-full border transition-all hover:shadow-md"
+                      style={{
+                        backgroundColor: isDarkMode
+                          ? `${tag.color}20`
+                          : `${tag.color}15`,
+                        borderColor: isDarkMode
+                          ? `${tag.color}40`
+                          : `${tag.color}30`,
+                        color: isDarkMode ? tag.color : tag.color,
+                      }}
+                      title={`Filter by ${tag.name}`}
+                    >
+                      {tag.icon} {tag.name}
+                    </button>
+                  ))}
+                  {tags.length > 8 && (
+                    <button
+                      onClick={() => navigate("/tags")}
+                      className={`text-xs px-2.5 py-1 rounded-full border transition-all ${
+                        isDarkMode
+                          ? "bg-white/10 border-white/20 text-gray-300 hover:text-white"
+                          : "bg-gray-100 border-gray-300 text-gray-700 hover:text-gray-900"
+                      }`}
+                    >
+                      +{tags.length - 8}
+                    </button>
+                  )}
+                </div>
+              </div>
+            )}
 
-        {/* Settings Section */}
-        <div
-          className={`p-4 mt-auto border-t transition-colors duration-500 space-y-2 ${
-            isDarkMode ? "border-white/10" : "border-gray-200"
-          }`}
-        >
-          {/* Dark mode button removed - moved to top-right corner */}
-          <button
-            onClick={() => setShowKeyboardHelp(true)}
-            className={`w-full px-4 py-2 font-semibold rounded-lg transition-all text-sm flex items-center gap-3 border ${
-              isDarkMode
-                ? "bg-pink-500/20 hover:bg-pink-500/40 border-pink-400/40 text-pink-300 hover:text-pink-200"
-                : "bg-pink-100 hover:bg-pink-200 border-pink-200 text-pink-700 hover:text-pink-800"
-            }`}
-            title="Show keyboard shortcuts"
-          >
-            <Keyboard size={18} />
-            <span>Shortcuts</span>
-          </button>
-          <button
-            onClick={() => setShowSettingsModal(true)}
-            className={`w-full px-4 py-2 font-semibold rounded-lg transition-all text-sm flex items-center gap-3 border ${
-              isDarkMode
-                ? "bg-blue-500/20 hover:bg-blue-500/40 border-blue-400/40 text-blue-300 hover:text-blue-200"
-                : "bg-blue-100 hover:bg-blue-200 border-blue-200 text-blue-700 hover:text-blue-800"
-            }`}
-            title="Account settings"
-          >
-            <Settings size={18} />
-            <span>Settings</span>
-          </button>
-          <button
-            onClick={handleLogout}
-            className={`w-full px-4 py-2 font-semibold rounded-lg transition-all text-sm flex items-center gap-3 border ${
-              isDarkMode
-                ? "bg-red-500/20 hover:bg-red-500/40 border-red-400/40 text-red-300 hover:text-red-200"
-                : "bg-red-100 hover:bg-red-200 border-red-200 text-red-700 hover:text-red-800"
-            }`}
-            title="Logout"
-          >
-            <LogOut size={18} />
-            <span>Logout</span>
-          </button>
-        </div>
+            {/* Pro Tips */}
+            <div
+              className={`p-4 border-b m-4 rounded-lg transition-colors duration-500 ${
+                isDarkMode
+                  ? "border-white/10 bg-blue-500/10"
+                  : "border-blue-200 bg-blue-50"
+              }`}
+            >
+              <p
+                className={`text-xs font-bold uppercase tracking-wider mb-2 flex items-center gap-2 transition-colors duration-500 ${
+                  isDarkMode ? "text-blue-300" : "text-blue-700"
+                }`}
+              >
+                <Lightbulb size={14} /> Pro Tips
+              </p>
+              <div
+                className={`space-y-1.5 text-xs transition-colors duration-500 ${
+                  isDarkMode ? "text-blue-200/80" : "text-blue-700"
+                }`}
+              >
+                <div className="flex gap-2">
+                  <kbd
+                    className={`px-1.5 py-0.5 rounded border font-mono text-xs transition-colors duration-500 ${
+                      isDarkMode
+                        ? "bg-blue-500/30 border-blue-400/50"
+                        : "bg-blue-100 border-blue-300"
+                    }`}
+                  >
+                    Ctrl+N
+                  </kbd>
+                  <span>New Note</span>
+                </div>
+                <div className="flex gap-2">
+                  <kbd
+                    className={`px-1.5 py-0.5 rounded border font-mono text-xs transition-colors duration-500 ${
+                      isDarkMode
+                        ? "bg-blue-500/30 border-blue-400/50"
+                        : "bg-blue-100 border-blue-300"
+                    }`}
+                  >
+                    Ctrl+K
+                  </kbd>
+                  <span>Search</span>
+                </div>
+                <div className="flex gap-2">
+                  <kbd
+                    className={`px-1.5 py-0.5 rounded border font-mono text-xs transition-colors duration-500 ${
+                      isDarkMode
+                        ? "bg-blue-500/30 border-blue-400/50"
+                        : "bg-blue-100 border-blue-300"
+                    }`}
+                  >
+                    ?
+                  </kbd>
+                  <span>Help</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Settings Section */}
+            <div
+              className={`p-4 mt-auto border-t transition-colors duration-500 space-y-2 ${
+                isDarkMode ? "border-white/10" : "border-gray-200"
+              }`}
+            >
+              {/* Dark mode button removed - moved to top-right corner */}
+              <button
+                onClick={() => setShowKeyboardHelp(true)}
+                className={`w-full px-4 py-2 font-semibold rounded-lg transition-all text-sm flex items-center gap-3 border ${
+                  isDarkMode
+                    ? "bg-pink-500/20 hover:bg-pink-500/40 border-pink-400/40 text-pink-300 hover:text-pink-200"
+                    : "bg-pink-100 hover:bg-pink-200 border-pink-200 text-pink-700 hover:text-pink-800"
+                }`}
+                title="Show keyboard shortcuts"
+              >
+                <Keyboard size={18} />
+                <span>Shortcuts</span>
+              </button>
+              <button
+                onClick={() => setShowSettingsModal(true)}
+                className={`w-full px-4 py-2 font-semibold rounded-lg transition-all text-sm flex items-center gap-3 border ${
+                  isDarkMode
+                    ? "bg-blue-500/20 hover:bg-blue-500/40 border-blue-400/40 text-blue-300 hover:text-blue-200"
+                    : "bg-blue-100 hover:bg-blue-200 border-blue-200 text-blue-700 hover:text-blue-800"
+                }`}
+                title="Account settings"
+              >
+                <Settings size={18} />
+                <span>Settings</span>
+              </button>
+              <button
+                onClick={handleLogout}
+                className={`w-full px-4 py-2 font-semibold rounded-lg transition-all text-sm flex items-center gap-3 border ${
+                  isDarkMode
+                    ? "bg-red-500/20 hover:bg-red-500/40 border-red-400/40 text-red-300 hover:text-red-200"
+                    : "bg-red-100 hover:bg-red-200 border-red-200 text-red-700 hover:text-red-800"
+                }`}
+                title="Logout"
+              >
+                <LogOut size={18} />
+                <span>Logout</span>
+              </button>
             </div>
           </div>
         </div>
+      </div>
 
       {/* MAIN CONTENT AREA */}
       <div
