@@ -1274,29 +1274,30 @@ Category: ${note.categoryId?.name || "No Category"}
         }`}
       >
         <div className="relative min-h-screen px-4 py-8 sm:px-6 lg:px-12">
-          {/* Mobile Hamburger Menu - Top Left */}
+          {/* Mobile Hamburger / Close Menu - Top Left */}
           <button
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className={`fixed top-6 left-6 z-50 md:hidden w-12 h-12 rounded-full transition-all duration-300 flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 ${
-              isDarkMode
-                ? "bg-blue-500/20 hover:bg-blue-500/40 border border-blue-400/40 text-blue-300 hover:text-blue-200"
-                : "bg-blue-500/20 hover:bg-blue-500/40 border border-blue-400/40 text-blue-700 hover:text-blue-600"
+            className={`fixed top-4 z-[60] md:hidden w-11 h-11 rounded-full transition-all duration-[350ms] flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 ${
+              isSidebarOpen
+                ? "left-[296px] " + (isDarkMode
+                  ? "bg-red-500/30 hover:bg-red-500/50 border border-red-400/50 text-red-300 hover:text-red-200"
+                  : "bg-red-100 hover:bg-red-200 border border-red-300 text-red-600 hover:text-red-700")
+                : "left-4 " + (isDarkMode
+                  ? "bg-blue-500/20 hover:bg-blue-500/40 border border-blue-400/40 text-blue-300 hover:text-blue-200"
+                  : "bg-white hover:bg-blue-50 border border-blue-200 text-blue-700 hover:text-blue-800 shadow-md shadow-blue-500/10")
             }`}
-            title="Toggle Sidebar"
+            title={isSidebarOpen ? "Close Sidebar" : "Open Sidebar"}
+            aria-label={isSidebarOpen ? "Close Sidebar" : "Open Sidebar"}
           >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
+            {isSidebarOpen ? (
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            )}
           </button>
 
           {/* Dark Mode Button - Top Right Corner */}

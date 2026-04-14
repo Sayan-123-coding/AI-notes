@@ -12,6 +12,9 @@ const TagsManagement = () => {
   const [tags, setTags] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showTagManager, setShowTagManager] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(
+    () => localStorage.getItem("darkMode") === "true",
+  );
 
   const fetchTags = async () => {
     setLoading(true);
@@ -48,10 +51,24 @@ const TagsManagement = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-purple-950 relative overflow-hidden">
+    <div
+      className={`min-h-screen relative overflow-hidden transition-colors duration-500 ${
+        isDarkMode
+          ? "bg-gradient-to-br from-slate-950 via-blue-950 to-purple-950"
+          : "bg-gradient-to-br from-slate-50 via-blue-50/40 to-indigo-50"
+      }`}
+    >
       {/* Background blobs */}
-      <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500/30 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-purple-500/25 rounded-full blur-3xl animate-pulse delay-700"></div>
+      <div
+        className={`absolute -top-40 -right-40 w-96 h-96 rounded-full blur-3xl animate-pulse ${
+          isDarkMode ? "bg-blue-500/30" : "bg-blue-300/20"
+        }`}
+      ></div>
+      <div
+        className={`absolute -bottom-40 -left-40 w-96 h-96 rounded-full blur-3xl animate-pulse delay-700 ${
+          isDarkMode ? "bg-purple-500/25" : "bg-indigo-300/20"
+        }`}
+      ></div>
 
       {/* Content */}
       <div className="relative z-10 min-h-screen px-4 py-12 sm:px-6 lg:px-8">
@@ -60,9 +77,15 @@ const TagsManagement = () => {
           <div className="flex items-center justify-between mb-8">
             <button
               onClick={() => navigate("/")}
-              className="px-4 py-2 bg-blue-500/20 hover:bg-blue-500/40 border border-blue-400/40 text-blue-300 hover:text-blue-200 font-semibold rounded-lg transition-all duration-200"
+              className={`flex items-center gap-1.5 px-3 py-2 sm:px-4 rounded-lg font-semibold transition-all duration-200 border ${
+                isDarkMode
+                  ? "bg-blue-500/20 hover:bg-blue-500/40 border border-blue-400/40 text-blue-300 hover:text-blue-200"
+                  : "bg-blue-100 hover:bg-blue-200 border border-blue-200 text-blue-700 hover:text-blue-800"
+              }`}
+              title="Back to Notes"
             >
-              ← Back to Notes
+              <span>←</span>
+              <span className="hidden md:inline">Back to Notes</span>
             </button>
           </div>
 
@@ -70,10 +93,16 @@ const TagsManagement = () => {
             <div className="mb-4">
               <span className="text-5xl">🏷️</span>
             </div>
-            <h1 className="text-5xl font-bold mb-3 bg-gradient-to-r from-blue-300 via-cyan-300 to-purple-300 bg-clip-text text-transparent">
+            <h1
+              className={`text-5xl font-bold mb-3 pb-2 ${
+                isDarkMode
+                  ? "bg-gradient-to-r from-blue-300 via-cyan-300 to-purple-300 bg-clip-text text-transparent"
+                  : "text-slate-800"
+              }`}
+            >
               Manage Tags
             </h1>
-            <p className="text-gray-400">
+            <p className={isDarkMode ? "text-gray-400" : "text-slate-500"}>
               Organize your notes with custom tags
             </p>
           </div>
@@ -95,23 +124,35 @@ const TagsManagement = () => {
               {[1, 2, 3, 4, 5, 6].map((i) => (
                 <div
                   key={i}
-                  className="bg-white/10 border border-white/20 rounded-2xl p-6 animate-pulse h-32"
+                  className={`border rounded-2xl p-6 animate-pulse h-32 ${
+                    isDarkMode
+                      ? "bg-white/10 border-white/20"
+                      : "bg-gray-100 border-gray-200"
+                  }`}
                 />
               ))}
             </div>
           ) : tags.length === 0 ? (
             <div className="text-center py-16">
               <div className="text-6xl mb-4">🏷️</div>
-              <h3 className="text-2xl font-bold text-white mb-2">
+              <h3
+                className={`text-2xl font-bold mb-2 ${isDarkMode ? "text-white" : "text-slate-800"}`}
+              >
                 No Tags Yet
               </h3>
-              <p className="text-gray-400 max-w-sm mx-auto mb-6">
+              <p
+                className={`max-w-sm mx-auto mb-6 ${isDarkMode ? "text-gray-400" : "text-slate-500"}`}
+              >
                 Create your first tag to organize your notes by theme, topic, or
                 project.
               </p>
               <button
                 onClick={() => setShowTagManager(true)}
-                className="px-6 py-3 bg-blue-500/20 hover:bg-blue-500/40 border border-blue-400/40 text-blue-300 hover:text-blue-200 font-semibold rounded-xl transition-all duration-200"
+                className={`px-6 py-3 font-semibold rounded-xl transition-all duration-200 border ${
+                  isDarkMode
+                    ? "bg-blue-500/20 hover:bg-blue-500/40 border-blue-400/40 text-blue-300 hover:text-blue-200"
+                    : "bg-blue-100 hover:bg-blue-200 border-blue-200 text-blue-700 hover:text-blue-800"
+                }`}
               >
                 Create First Tag
               </button>
@@ -121,7 +162,11 @@ const TagsManagement = () => {
               {tags.map((tag) => (
                 <div
                   key={tag._id}
-                  className="bg-white/10 backdrop-blur-2xl border border-white/20 rounded-2xl p-6 hover:bg-white/15 hover:border-blue-400/50 transition-all duration-300"
+                  className={`backdrop-blur-2xl border rounded-2xl p-6 transition-all duration-300 ${
+                    isDarkMode
+                      ? "bg-white/10 border-white/20 hover:bg-white/15 hover:border-blue-400/50"
+                      : "bg-white border-gray-200 shadow-lg hover:shadow-xl hover:border-blue-300"
+                  }`}
                 >
                   {/* Tag header */}
                   <div className="flex items-start justify-between mb-4">
@@ -134,7 +179,11 @@ const TagsManagement = () => {
                       <span className="text-2xl">{tag.icon}</span>
                     </div>
                     <span
-                      className="px-3 py-1 bg-white/10 rounded-lg text-xs font-semibold text-gray-300"
+                      className={`px-3 py-1 rounded-lg text-xs font-semibold ${
+                        isDarkMode
+                          ? "bg-white/10 text-gray-300"
+                          : "bg-gray-100 text-slate-500"
+                      }`}
                       title="Color code"
                     >
                       {tag.color}
@@ -142,22 +191,38 @@ const TagsManagement = () => {
                   </div>
 
                   {/* Tag name */}
-                  <h3 className="text-lg font-bold text-white mb-4">
+                  <h3
+                    className={`text-lg font-bold mb-4 ${isDarkMode ? "text-white" : "text-slate-800"}`}
+                  >
                     {tag.name}
                   </h3>
 
                   {/* Usage stats */}
                   {tag.usageCount !== undefined && (
-                    <div className="flex items-center justify-between mb-4 p-3 bg-white/5 border border-white/10 rounded-lg">
-                      <span className="text-sm text-gray-300">Used in</span>
-                      <span className="text-lg font-bold text-blue-300">
+                    <div
+                      className={`flex items-center justify-between mb-4 p-3 border rounded-lg ${
+                        isDarkMode
+                          ? "bg-white/5 border-white/10"
+                          : "bg-gray-50 border-gray-100"
+                      }`}
+                    >
+                      <span
+                        className={`text-sm ${isDarkMode ? "text-gray-300" : "text-slate-500"}`}
+                      >
+                        Used in
+                      </span>
+                      <span
+                        className={`text-lg font-bold ${isDarkMode ? "text-blue-300" : "text-blue-600"}`}
+                      >
                         {tag.usageCount} note{tag.usageCount !== 1 ? "s" : ""}
                       </span>
                     </div>
                   )}
 
                   {/* Meta */}
-                  <p className="text-xs text-gray-400 mb-4">
+                  <p
+                    className={`text-xs mb-4 ${isDarkMode ? "text-gray-400" : "text-slate-500"}`}
+                  >
                     Created {new Date(tag.createdAt).toLocaleDateString()}
                   </p>
 
@@ -202,8 +267,12 @@ const TagsManagement = () => {
           )}
 
           {/* Footer */}
-          <div className="mt-16 pt-8 border-t border-white/10 text-center">
-            <p className="text-gray-400 text-sm">
+          <div
+            className={`mt-16 pt-8 border-t text-center ${
+              isDarkMode ? "border-white/10" : "border-gray-200"
+            }`}
+          >
+            <p className={isDarkMode ? "text-gray-400" : "text-slate-500"}>
               {tags.length} tag{tags.length !== 1 ? "s" : ""} created
             </p>
           </div>

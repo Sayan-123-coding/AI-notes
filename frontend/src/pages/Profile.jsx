@@ -84,7 +84,7 @@ const Profile = () => {
           <div className="flex items-center justify-between">
             <button
               onClick={() => navigate("/")}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 ${
+              className={`flex items-center gap-2 px-3 py-2 sm:px-4 rounded-lg transition-all duration-200 ${
                 isDarkMode
                   ? "bg-white/10 hover:bg-white/20 text-blue-300 hover:text-blue-200 border border-white/20"
                   : "bg-blue-100 hover:bg-blue-200 text-blue-700 hover:text-blue-800 border border-blue-200"
@@ -92,7 +92,7 @@ const Profile = () => {
               title="Go back to notes"
             >
               <ArrowLeft size={18} />
-              Back to Notes
+              <span className="hidden md:inline font-semibold">Back to Notes</span>
             </button>
             <h1
               className={`text-3xl font-bold transition-colors duration-500 ${
@@ -384,13 +384,14 @@ const Profile = () => {
             <div className="flex gap-3">
               <button
                 onClick={() => navigate("/")}
-                className={`flex-1 px-6 py-3 rounded-lg font-semibold transition-all duration-200 ${
+                className={`flex-1 px-4 py-3 rounded-lg font-semibold transition-all duration-200 flex items-center justify-center gap-2 ${
                   isDarkMode
                     ? "bg-blue-500/20 hover:bg-blue-500/40 border border-blue-400/40 text-blue-300 hover:text-blue-200"
                     : "bg-blue-500/10 hover:bg-blue-500/20 border border-blue-400/20 text-blue-700 hover:text-blue-600"
                 }`}
               >
-                Back to Notes
+                <ArrowLeft size={16} />
+                <span className="hidden md:inline">Back to Notes</span>
               </button>
               <button
                 onClick={handleLogout}

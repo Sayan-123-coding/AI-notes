@@ -14,6 +14,9 @@ const ArchivedNotes = () => {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [pagination, setPagination] = useState(null);
+  const [isDarkMode, setIsDarkMode] = useState(
+    () => localStorage.getItem("darkMode") === "true",
+  );
 
   const fetchArchivedNotes = async (searchQuery = "", pageNum = 1) => {
     setLoading(true);
@@ -94,10 +97,24 @@ const ArchivedNotes = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-purple-950 relative overflow-hidden">
+    <div
+      className={`min-h-screen relative overflow-hidden transition-colors duration-500 ${
+        isDarkMode
+          ? "bg-gradient-to-br from-slate-950 via-blue-950 to-purple-950"
+          : "bg-gradient-to-br from-slate-50 via-blue-50/40 to-indigo-50"
+      }`}
+    >
       {/* Background blobs */}
-      <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500/30 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-purple-500/25 rounded-full blur-3xl animate-pulse delay-700"></div>
+      <div
+        className={`absolute -top-40 -right-40 w-96 h-96 rounded-full blur-3xl animate-pulse ${
+          isDarkMode ? "bg-blue-500/30" : "bg-blue-300/20"
+        }`}
+      ></div>
+      <div
+        className={`absolute -bottom-40 -left-40 w-96 h-96 rounded-full blur-3xl animate-pulse delay-700 ${
+          isDarkMode ? "bg-purple-500/25" : "bg-indigo-300/20"
+        }`}
+      ></div>
 
       {/* Content */}
       <div className="relative z-10 min-h-screen px-4 py-12 sm:px-6 lg:px-8">
@@ -106,17 +123,29 @@ const ArchivedNotes = () => {
           <div className="flex items-center justify-between mb-8">
             <button
               onClick={() => navigate("/")}
-              className="px-4 py-2 bg-blue-500/20 hover:bg-blue-500/40 border border-blue-400/40 text-blue-300 hover:text-blue-200 font-semibold rounded-lg transition-all duration-200"
+              className={`flex items-center gap-1.5 px-3 py-2 sm:px-4 rounded-lg font-semibold transition-all duration-200 border ${
+                isDarkMode
+                  ? "bg-blue-500/20 hover:bg-blue-500/40 border border-blue-400/40 text-blue-300 hover:text-blue-200"
+                  : "bg-blue-100 hover:bg-blue-200 border border-blue-200 text-blue-700 hover:text-blue-800"
+              }`}
+              title="Back to Notes"
             >
-              ← Back to Notes
+              <span>←</span>
+              <span className="hidden md:inline">Back to Notes</span>
             </button>
           </div>
 
           <div className="text-center mb-8">
-            <h1 className="text-5xl font-bold mb-3 bg-gradient-to-r from-blue-300 via-cyan-300 to-purple-300 bg-clip-text text-transparent">
+            <h1
+              className={`text-5xl font-bold mb-3 ${
+                isDarkMode
+                  ? "bg-gradient-to-r from-blue-300 via-cyan-300 to-purple-300 bg-clip-text text-transparent"
+                  : "text-slate-800"
+              }`}
+            >
               Archived Notes
             </h1>
-            <p className="text-gray-400">
+            <p className={isDarkMode ? "text-gray-400" : "text-slate-500"}>
               {notes.length} archived note{notes.length !== 1 ? "s" : ""}
             </p>
           </div>
@@ -159,12 +188,22 @@ const ArchivedNotes = () => {
               {notes.map((note) => (
                 <div
                   key={note._id}
-                  className="group relative bg-white/10 backdrop-blur-2xl border border-white/20 rounded-2xl p-6 sm:p-8 hover:bg-white/15 hover:border-blue-400/50 transition-all duration-300"
+                  className={`group relative border rounded-2xl p-6 sm:p-8 transition-all duration-300 ${
+                    isDarkMode
+                      ? "bg-white/10 backdrop-blur-2xl border-white/20 hover:bg-white/15 hover:border-blue-400/50"
+                      : "bg-white border-gray-200 shadow-lg hover:shadow-xl hover:border-blue-300"
+                  }`}
                 >
                   {/* Category */}
                   {note.categoryId && (
                     <div className="mb-3">
-                      <span className="inline-flex items-center gap-2 px-3 py-1 bg-white/15 border border-white/25 rounded-lg text-sm font-medium text-gray-200">
+                      <span
+                        className={`inline-flex items-center gap-2 px-3 py-1 border rounded-lg text-sm font-medium transition-colors duration-500 ${
+                          isDarkMode
+                            ? "bg-white/15 border-white/25 text-gray-200"
+                            : "bg-blue-50 border-blue-100 text-blue-700"
+                        }`}
+                      >
                         <span>{note.categoryId.icon}</span>
                         {note.categoryId.name}
                       </span>
@@ -172,12 +211,18 @@ const ArchivedNotes = () => {
                   )}
 
                   {/* Content Preview */}
-                  <p className="text-gray-100 leading-relaxed mb-4 line-clamp-3">
+                  <p
+                    className={`leading-relaxed mb-4 line-clamp-3 transition-colors duration-500 ${
+                      isDarkMode ? "text-gray-100" : "text-slate-700"
+                    }`}
+                  >
                     {note.text}
                   </p>
 
                   {/* Meta */}
-                  <div className="flex items-center gap-4 text-xs text-gray-400 mb-4">
+                  <div
+                    className={`flex items-center gap-4 text-xs mb-4 ${isDarkMode ? "text-gray-400" : "text-slate-500"}`}
+                  >
                     <span>
                       📅 {new Date(note.createdAt).toLocaleDateString()}
                     </span>
@@ -188,13 +233,21 @@ const ArchivedNotes = () => {
                   <div className="flex gap-3">
                     <button
                       onClick={() => handleUnarchive(note._id)}
-                      className="flex-1 bg-blue-500/20 hover:bg-blue-500/40 border border-blue-400/40 text-blue-300 hover:text-blue-200 font-semibold py-2 rounded-lg text-sm transition-all duration-200"
+                      className={`flex-1 font-semibold py-2 rounded-lg text-sm transition-all duration-200 border ${
+                        isDarkMode
+                          ? "bg-blue-500/20 hover:bg-blue-500/40 border-blue-400/40 text-blue-300 hover:text-blue-200"
+                          : "bg-blue-600 hover:bg-blue-700 border-blue-700 text-white"
+                      }`}
                     >
                       📂 Unarchive
                     </button>
                     <button
                       onClick={() => handleDelete(note._id)}
-                      className="flex-1 bg-red-500/20 hover:bg-red-500/40 border border-red-400/40 text-red-300 hover:text-red-200 font-semibold py-2 rounded-lg text-sm transition-all duration-200"
+                      className={`flex-1 font-semibold py-2 rounded-lg text-sm transition-all duration-200 border ${
+                        isDarkMode
+                          ? "bg-red-500/20 hover:bg-red-500/40 border-red-400/40 text-red-300 hover:text-red-200"
+                          : "bg-red-50 hover:bg-red-100 border-red-200 text-red-600 hover:text-red-700"
+                      }`}
                     >
                       🗑️ Delete
                     </button>
@@ -213,11 +266,19 @@ const ArchivedNotes = () => {
                   fetchArchivedNotes(search, page - 1);
                 }}
                 disabled={!pagination.hasPrevPage || loading}
-                className="px-6 py-3 bg-blue-500/20 hover:bg-blue-500/40 border border-blue-400/40 text-blue-300 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg font-semibold"
+                className={`px-6 py-3 border rounded-lg font-semibold transition-all duration-200 ${
+                  !pagination.hasPrevPage || loading
+                    ? isDarkMode
+                      ? "bg-gray-600/50 cursor-not-allowed text-gray-300 border-gray-500/30"
+                      : "bg-gray-100 cursor-not-allowed text-gray-400 border-gray-200"
+                    : isDarkMode
+                      ? "bg-blue-500/20 hover:bg-blue-500/40 border-blue-400/40 text-blue-300"
+                      : "bg-blue-100 hover:bg-blue-200 border-blue-200 text-blue-700"
+                }`}
               >
                 ← Previous
               </button>
-              <span className="text-gray-400">
+              <span className={isDarkMode ? "text-gray-400" : "text-slate-600"}>
                 Page {page} of {pagination.totalPages}
               </span>
               <button
@@ -226,7 +287,15 @@ const ArchivedNotes = () => {
                   fetchArchivedNotes(search, page + 1);
                 }}
                 disabled={!pagination.hasNextPage || loading}
-                className="px-6 py-3 bg-purple-500/20 hover:bg-purple-500/40 border border-purple-400/40 text-purple-300 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg font-semibold"
+                className={`px-6 py-3 border rounded-lg font-semibold transition-all duration-200 ${
+                  !pagination.hasNextPage || loading
+                    ? isDarkMode
+                      ? "bg-gray-600/50 cursor-not-allowed text-gray-300 border-gray-500/30"
+                      : "bg-gray-100 cursor-not-allowed text-gray-400 border-gray-200"
+                    : isDarkMode
+                      ? "bg-purple-500/20 hover:bg-purple-500/40 border-purple-400/40 text-purple-300"
+                      : "bg-purple-100 hover:bg-purple-200 border-purple-200 text-purple-700"
+                }`}
               >
                 Next →
               </button>
