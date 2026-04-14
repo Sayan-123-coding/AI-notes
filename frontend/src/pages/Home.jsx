@@ -898,17 +898,17 @@ Category: ${note.categoryId?.name || "No Category"}
         ></div>
       )}
 
-      <div className="flex min-h-screen">
-        {/* LEFT SIDEBAR - FIXED ON MOBILE, RELATIVE ON DESKTOP */}
+      <div className="flex flex-col md:flex-row min-h-screen w-full">
+        {/* LEFT SIDEBAR */}
         <div
-          className={`fixed md:relative inset-y-0 left-0 w-72 z-50 transform transition-transform duration-300 md:transform-none ${
+          className={`fixed md:relative inset-y-0 left-0 w-72 h-screen md:h-auto z-50 md:z-auto transform transition-transform duration-300 md:transform-none md:flex-shrink-0 md:w-72 ${
             isSidebarOpen
               ? "translate-x-0"
               : "-translate-x-full md:translate-x-0"
           }`}
         >
           <div
-            className={`w-72 h-full backdrop-blur border-r overflow-y-auto transition-colors duration-500 ${
+            className={`w-72 h-screen md:h-auto md:min-h-screen backdrop-blur border-r overflow-y-auto transition-colors duration-500 ${
               isDarkMode
                 ? "bg-slate-900/80 border-white/10"
                 : "bg-white border-gray-200"
@@ -1270,11 +1270,11 @@ Category: ${note.categoryId?.name || "No Category"}
 
       {/* MAIN CONTENT AREA */}
       <div
-        className={`flex-1 w-full md:flex-1 overflow-y-auto transition-colors duration-500 relative ${
+        className={`flex-1 overflow-y-auto w-full transition-colors duration-500 ${
           isDarkMode ? "" : ""
         }`}
       >
-        <div className="w-full px-4 py-8 sm:px-6 lg:px-12">
+        <div className="relative min-h-screen px-4 py-8 sm:px-6 lg:px-12">
           {/* Mobile Hamburger Menu - Top Left */}
           <button
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
