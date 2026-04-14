@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from "react-hot-toast";
 import { useAuth } from "../context/AuthContext";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+
 const SharedNotes = () => {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
@@ -41,7 +43,7 @@ const SharedNotes = () => {
 
       const token = localStorage.getItem("authToken");
       const res = await fetch(
-        `http://localhost:5000/api/shares/shared-with-me?${params}`,
+        `${API_URL}/shares/shared-with-me?${params}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         },

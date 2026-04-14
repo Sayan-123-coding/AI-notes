@@ -4,6 +4,8 @@ import { toast } from "react-hot-toast";
 import { useAuth } from "../context/AuthContext";
 import TagManager from "../components/TagManager";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+
 const TagsManagement = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -15,7 +17,7 @@ const TagsManagement = () => {
     setLoading(true);
     try {
       const token = localStorage.getItem("authToken");
-      const res = await fetch("http://localhost:5000/api/tags", {
+      const res = await fetch(`${API_URL}/tags`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -167,7 +169,7 @@ const TagsManagement = () => {
                       );
                       if (confirmed) {
                         // Call delete API here
-                        fetch(`http://localhost:5000/api/tags/${tag._id}`, {
+                        fetch(`${API_URL}/tags/${tag._id}`, {
                           method: "DELETE",
                           headers: {
                             Authorization: `Bearer ${localStorage.getItem("authToken")}`,

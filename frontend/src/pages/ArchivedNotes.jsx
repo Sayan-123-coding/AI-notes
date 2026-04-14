@@ -4,6 +4,8 @@ import { toast } from "react-hot-toast";
 import { useAuth } from "../context/AuthContext";
 import SkeletonLoader from "../components/SkeletonLoader";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+
 const ArchivedNotes = () => {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
@@ -24,7 +26,7 @@ const ArchivedNotes = () => {
       });
 
       const token = localStorage.getItem("authToken");
-      const res = await fetch(`http://localhost:5000/api/notes?${params}`, {
+      const res = await fetch(`${API_URL}/notes?${params}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -51,7 +53,7 @@ const ArchivedNotes = () => {
     try {
       const token = localStorage.getItem("authToken");
       const res = await fetch(
-        `http://localhost:5000/api/notes/${noteId}/archive`,
+        `${API_URL}/notes/${noteId}/archive`,
         {
           method: "PUT",
           headers: { Authorization: `Bearer ${token}` },
@@ -76,7 +78,7 @@ const ArchivedNotes = () => {
 
     try {
       const token = localStorage.getItem("authToken");
-      const res = await fetch(`http://localhost:5000/api/notes/${noteId}`, {
+      const res = await fetch(`${API_URL}/notes/${noteId}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+
 const TagManager = ({
   isOpen,
   onClose,
@@ -22,7 +24,7 @@ const TagManager = ({
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/tags", {
+      const response = await fetch(`${API_URL}/tags`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -56,7 +58,7 @@ const TagManager = ({
       return;
 
     try {
-      const response = await fetch(`http://localhost:5000/api/tags/${tagId}`, {
+      const response = await fetch(`${API_URL}/tags/${tagId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("authToken")}`,

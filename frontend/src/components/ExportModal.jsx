@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+
 const ExportModal = ({
   isOpen,
   onClose,
@@ -28,7 +30,7 @@ const ExportModal = ({
       if (filters.isFavorited) params.append("isFavorited", "true");
 
       const response = await fetch(
-        `http://localhost:5000/api/export/${format}?${params}`,
+        `${API_URL}/export/${format}?${params}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
